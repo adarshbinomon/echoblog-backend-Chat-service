@@ -20,7 +20,7 @@ jobs:
 
       - name: Set up environment variables
         run: |
-          echo "PORT=${{ secrets.PORT }}" >> chat-Service/.env
+          echo "PORT=${{ secrets.PORT }}" >> .env
           echo "MONGODB_URL=${{ secrets.MONGODB_URL }}" >> .env
           echo "ACCESS_SECRET_KEY=${{ secrets.ACCESS_SECRET_KEY }}" >> .env
           echo "ACCESS_TOKEN_EXPIRY=${{ secrets.ACCESS_TOKEN_EXPIRY }}" >> .env
