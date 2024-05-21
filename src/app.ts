@@ -13,6 +13,7 @@ dotenv.config();
 const app =express()
 const store = new MemoryStore();
 declare module "express-session" {}
+const port = process.env.PORT
 
 
 app.use(
@@ -37,10 +38,6 @@ app.use(
     credentials: true,
   })
 );
-export const io: Server = require('socket.io')(8081, {
-  cors: { origin: 'http://localhost:5173' }
-});
-socketConfig()
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", routes(dependencies as Dependencies));

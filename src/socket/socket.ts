@@ -1,25 +1,25 @@
-import { Socket } from "socket.io";
-import { io } from "../app";
-
+import { Server, Socket } from "socket.io";
+import { io } from "..";
 
 const userSocketMap: Record<string, string> = {};
 
 export const getRecieverSocketId = (recieverId: string): string | undefined => {
- return userSocketMap[recieverId];
+  return userSocketMap[recieverId];
 };
 
-const socketConfig=()=>{
-  
+const socketConfig = () => {
+
+
   io?.on("connection", (socket: Socket) => {
     console.log("a user connected", socket.id);
-  
+
     const userId: string | undefined = socket.handshake.query.userId as string;
     if (userId && userId !== "undefined") {
       userSocketMap[userId] = socket.id;
     }
-  
+
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
-  
+
     socket.on("disconnect", () => {
       console.log("user disconnected", socket.id);
       if (userId) {
@@ -28,7 +28,5 @@ const socketConfig=()=>{
       }
     });
   });
- 
-  
-}  
-export default socketConfig
+};
+export default socketConfig;

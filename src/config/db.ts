@@ -8,7 +8,7 @@ const connectDb = async () => {
     await mongoose.connect(connectionString);
     console.log("Connected to the Chat database");
   } catch (error) {
-    console.error("Error connecting to the Chat database");
+    console.error("Error connecting to the Chat database",error);
     process.exit(1);
   }
 };

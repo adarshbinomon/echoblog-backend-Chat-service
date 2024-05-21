@@ -1,6 +1,6 @@
 import { schema } from "../database";
 const { User, Message, Conversation } = schema;
-import { io } from "../../../app";
+import { io } from "../../../index";
 import { getRecieverSocketId } from "../../../socket/socket";
 
 export default {
