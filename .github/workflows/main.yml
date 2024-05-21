@@ -22,7 +22,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: adarshbinomon/echoblog-backend-Chat-service
+          images: adarshbinomon/echoblog-backend-chat-service
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -30,7 +30,7 @@ jobs:
           context: .
           push: true
           # tags: ${{ steps.meta.outputs.tags }} to get tags from the steps
-          tags: adarshbinomon/echoblog-backend-Chat-service:latest
+          tags: adarshbinomon/echoblog-backend-chat-service:latest
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Set up DigitalOcean CLI
