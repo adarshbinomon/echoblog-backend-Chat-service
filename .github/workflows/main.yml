@@ -18,6 +18,15 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Set up environment variables
+        run: |
+          echo "PORT=${{ secrets.PORT }}" >> usr/src/app/.env
+          echo "MONGODB_URL=${{ secrets.MONGODB_URL }}" >> usr/src/app/.env
+          echo "ACCESS_SECRET_KEY=${{ secrets.ACCESS_SECRET_KEY }}" >> usr/src/app/.env
+          echo "ACCESS_TOKEN_EXPIRY=${{ secrets.ACCESS_TOKEN_EXPIRY }}" >> usr/src/app/.env
+          echo "REFRESH_SECRET_KEY=${{ secrets.REFRESH_SECRET_KEY }}" >> usr/src/app/.env
+          echo "REFRESH_TOKEN_EXPIRY=${{ secrets.REFRESH_TOKEN_EXPIRY }}" >> usr/src/app/.env
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v3
@@ -29,7 +38,6 @@ jobs:
         with:
           context: .
           push: true
-          # tags: ${{ steps.meta.outputs.tags }} to get tags from the steps
           tags: adarshbinomon/echoblog-backend-chat-service:latest
           labels: ${{ steps.meta.outputs.labels }}
 
@@ -42,4 +50,4 @@ jobs:
         run: doctl kubernetes cluster kubeconfig save ${{ secrets.DIGITALOCEAN_CLUSTER_ID }}
 
       - name: Restart Kubernetes deployment
-        run: kubectl rollout restart deployment chat-deployment
+        run: kubectl rollout restart deployment/chat-deployment
